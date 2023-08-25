@@ -3,31 +3,45 @@ import SwiftSyntax
 import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
-/// Implementation of the `stringify` macro, which takes an expression
-/// of any type and produces a tuple containing the value of that expression
-/// and the source code that produced the value. For example
-///
-///     #stringify(x + y)
-///
-///  will expand to
-///
-///     (x + y, "x + y")
-public struct StringifyMacro: ExpressionMacro {
+public struct EnumIdentifiableMacro: ExtensionMacro {
     public static func expansion(
-        of node: some FreestandingMacroExpansionSyntax,
+        of node: AttributeSyntax,
+        attachedTo declaration: some DeclGroupSyntax,
+        providingExtensionsOf type: some TypeSyntaxProtocol,
+        conformingTo protocols: [TypeSyntax],
         in context: some MacroExpansionContext
-    ) -> ExprSyntax {
-        guard let argument = node.argumentList.first?.expression else {
-            fatalError("compiler bug: the macro does not have any arguments")
+    ) throws -> [ExtensionDeclSyntax] {
+        guard declaration.is(EnumDeclSyntax.self) else {
+            throw EnumIdentifiableError.notAnEnum
         }
+        
+        let ext: DeclSyntax =
+        """
+        extension \(type.trimmed): Identifiable {
+            var id: \(type.trimmed) {
+                return self
+            }
+        }
+        """
+        
+        return [ext.cast(ExtensionDeclSyntax.self)]
+    }
+}
 
-        return "(\(argument), \(literal: argument.description))"
+enum EnumIdentifiableError: Error, CustomStringConvertible {
+    case notAnEnum
+    
+    var description: String {
+        switch self {
+        case .notAnEnum:
+            return "'@EnumIdentifiable' can only be applied to an 'enum'"
+        }
     }
 }
 
 @main
 struct EnumIdentifiablePlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
-        StringifyMacro.self,
+        EnumIdentifiableMacro.self,
     ]
 }

@@ -7,19 +7,35 @@ import XCTest
 import EnumIdentifiableMacros
 
 let testMacros: [String: Macro.Type] = [
-    "stringify": StringifyMacro.self,
+    "EnumIdentifiable" : EnumIdentifiableMacro.self,
 ]
 #endif
 
 final class EnumIdentifiableTests: XCTestCase {
-    func testMacro() throws {
+    func testEnumIdentifiable() throws {
         #if canImport(EnumIdentifiableMacros)
         assertMacroExpansion(
             """
-            #stringify(a + b)
+            @EnumIdentifiable
+            enum Fruit {
+                case apple, banana
+                case orange(Int)
+                case mango
+            }
             """,
-            expandedSource: """
-            (a + b, "a + b")
+            expandedSource:
+            """
+            enum Fruit {
+                case apple, banana
+                case orange(Int)
+                case mango
+            }
+            
+            extension Fruit: Identifiable {
+                var id: Fruit {
+                    return self
+                }
+            }
             """,
             macros: testMacros
         )
@@ -28,15 +44,22 @@ final class EnumIdentifiableTests: XCTestCase {
         #endif
     }
 
-    func testMacroWithStringLiteral() throws {
+    func testEnumIdentifiableOnStruct() throws {
         #if canImport(EnumIdentifiableMacros)
         assertMacroExpansion(
-            #"""
-            #stringify("Hello, \(name)")
-            """#,
-            expandedSource: #"""
-            ("Hello, \(name)", #""Hello, \(name)""#)
-            """#,
+            """
+            @EnumIdentifiable
+            struct Fruit {
+            }
+            """,
+            expandedSource:
+            """
+            struct Fruit {
+            }
+            """,
+            diagnostics: [
+                DiagnosticSpec(message: "'@EnumIdentifiable' can only be applied to an 'enum'", line: 1, column: 1)
+            ],
             macros: testMacros
         )
         #else
