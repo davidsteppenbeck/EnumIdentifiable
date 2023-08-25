@@ -1,4 +1,4 @@
-/// A attached macro for `enum` that provides automatic conformance to the `Identifiable` protocol and returns `self` as the `id` value.
+/// An attached macro for `enum` that provides automatic conformance to the `Identifiable` protocol and returns `self` as the `id` value.
 /// Applying the macro to anything other than an `enum` will result in a compile time error.
 ///
 /// Applying `@EnumIdentifiable` to an `enum`
