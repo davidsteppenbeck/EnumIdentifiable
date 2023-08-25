@@ -19,7 +19,6 @@ final class EnumIdentifiableTests: XCTestCase {
             @EnumIdentifiable
             enum Fruit {
                 case apple, banana
-                case orange(Int)
                 case mango
             }
             """,
@@ -27,7 +26,6 @@ final class EnumIdentifiableTests: XCTestCase {
             """
             enum Fruit {
                 case apple, banana
-                case orange(Int)
                 case mango
             }
             

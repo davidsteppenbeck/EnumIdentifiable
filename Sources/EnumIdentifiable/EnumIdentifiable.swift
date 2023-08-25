@@ -16,5 +16,5 @@
 ///             return self
 ///         }
 ///     }
-@attached(extension)
+@attached(extension, conformances: Identifiable, names: named(id))
 public macro EnumIdentifiable() = #externalMacro(module: "EnumIdentifiableMacros", type: "EnumIdentifiableMacro")
