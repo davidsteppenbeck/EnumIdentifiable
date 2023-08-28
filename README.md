@@ -17,7 +17,7 @@ enum Fruit {
 This will automatically generate the following code:
 
 ```swift
-extension Fruit {
+extension Fruit: Identifiable {
     var id: Fruit {
         return self
     }
