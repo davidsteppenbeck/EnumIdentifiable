@@ -12,6 +12,7 @@ let testMacros: [String: Macro.Type] = [
 #endif
 
 final class EnumIdentifiableTests: XCTestCase {
+    
     func testEnumIdentifiable() throws {
         #if canImport(EnumIdentifiableMacros)
         assertMacroExpansion(
@@ -41,7 +42,7 @@ final class EnumIdentifiableTests: XCTestCase {
         throw XCTSkip("macros are only supported when running tests for the host platform")
         #endif
     }
-
+    
     func testEnumIdentifiableOnStruct() throws {
         #if canImport(EnumIdentifiableMacros)
         assertMacroExpansion(
@@ -64,4 +65,5 @@ final class EnumIdentifiableTests: XCTestCase {
         throw XCTSkip("macros are only supported when running tests for the host platform")
         #endif
     }
+    
 }

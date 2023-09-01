@@ -4,6 +4,7 @@ import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
 public struct EnumIdentifiableMacro: ExtensionMacro {
+    
     public static func expansion(
         of node: AttributeSyntax,
         attachedTo declaration: some DeclGroupSyntax,
@@ -15,8 +16,7 @@ public struct EnumIdentifiableMacro: ExtensionMacro {
             throw EnumIdentifiableError.notAnEnum
         }
         
-        let ext: DeclSyntax =
-        """
+        let ext: DeclSyntax = """
         extension \(type.trimmed): Identifiable {
             var id: \(type.trimmed) {
                 return self
@@ -26,6 +26,7 @@ public struct EnumIdentifiableMacro: ExtensionMacro {
         
         return [ext.cast(ExtensionDeclSyntax.self)]
     }
+    
 }
 
 enum EnumIdentifiableError: Error, CustomStringConvertible {
