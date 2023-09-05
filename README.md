@@ -1,6 +1,6 @@
 # EnumIdentifiable
 
-EnumIdentifiable is a Swift macro for `enum` that provides automatic conformance to the `Identifiable` protocol and returns `self` as the `id` value.
+`EnumIdentifiable` is a Swift macro for `enum` that provides automatic conformance to the `Identifiable` protocol and returns `self` as the `id` value.
 
 ## Usage
 
