@@ -17,8 +17,8 @@ public struct EnumIdentifiableMacro: ExtensionMacro {
         }
         
         let ext: DeclSyntax = """
-        extension \(type.trimmed): Identifiable {
-            var id: \(type.trimmed) {
+        extension \(type): Identifiable {
+            var id: \(type) {
                 return self
             }
         }
