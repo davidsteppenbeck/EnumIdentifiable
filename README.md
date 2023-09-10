@@ -1,6 +1,6 @@
 # EnumIdentifiable
 
-`EnumIdentifiable` is a Swift macro for `enum` that provides automatic conformance to the `Identifiable` protocol and returns `self` as the `id` value.
+`EnumIdentifiable` is an attached Swift macro for `enum` that provides automatic conformance to the `Identifiable` protocol and returns `self` as the `id` value.
 
 ## Usage
 
@@ -26,7 +26,7 @@ extension Fruit: Identifiable {
 
 ## Installation
 
-The package can be installed using [Swift Package Manager](https://swift.org/package-manager/). To add EnumIdentifiable to your Xcode project, select *File > Add Package Dependancies...* and search for the repository URL: `https://github.com/davidsteppenbeck/EnumIdentifiable`.
+The package can be installed using [Swift Package Manager](https://swift.org/package-manager/). To add EnumIdentifiable to your Xcode project, select *File > Add Package Dependancies...* and search for the repository URL: `https://github.com/davidsteppenbeck/EnumIdentifiable.git`.
 
 ## License
 
